@@ -9,9 +9,19 @@ import "@fontsource/roboto/700.css";
 
 import { CssBaseline } from "@mui/material";
 
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+	palette: {
+		mode: "dark",
+	},
+});
+
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
-		<App />
-        <CssBaseline />
+		<ThemeProvider theme={theme}>
+			<App />
+			<CssBaseline />
+		</ThemeProvider>
 	</React.StrictMode>,
 );

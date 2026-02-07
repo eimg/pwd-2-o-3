@@ -5,6 +5,11 @@ import {
     Badge,
 } from "@mui/material";
 
+import {
+    LightMode as LightModeIcon,
+    DarkMode as DarkModeIcon,
+} from "@mui/icons-material";
+
 export default function Header({ count }) {
     return <AppBar position="static">
         <Toolbar>
