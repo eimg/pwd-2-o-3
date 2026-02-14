@@ -10,14 +10,17 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "jsonwebtoken": "^9.0.3",
     "react": "^19.2.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.28.6",
     "@babel/core": "^7.29.0",
     "@babel/preset-react": "^7.28.5",
+    "@faker-js/faker": "^10.3.0",
     "babel-loader": "^10.0.0",
     "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1",
