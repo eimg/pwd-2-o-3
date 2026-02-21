@@ -1,8 +1,17 @@
 import express from "express";
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded());
+
+import cors from "cors";
+app.use(cors());
+
 import { router as postsRouter } from "./routes/posts";
 app.use(postsRouter);
+
+import { router as usersRouter } from "./routes/users";
+app.use(usersRouter);
 
 app.get("/", (req, res) => {
     res.json({ msg: "Social API up and running..." });
