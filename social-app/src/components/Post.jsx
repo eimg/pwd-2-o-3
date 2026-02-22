@@ -34,7 +34,7 @@ export default function Post({ post }) {
 					<Typography sx={{ color: green[500] }}>
 						{post.createAt}
 					</Typography>
-					<Typography onClick={() => navigate("/view")}>
+					<Typography onClick={() => navigate(`/view/${post.id}`)}>
 						{post.content}
 					</Typography>
 				</Box>
@@ -58,7 +58,7 @@ export default function Post({ post }) {
 					<Button
 						size="sm"
 						variant="text">
-						5
+						{post.comments.length}
 					</Button>
 				</ButtonGroup>
 			</Box>

@@ -1,21 +1,41 @@
+import { Box } from "@mui/material";
 import Post from "../components/Post";
 
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+
+const api = "http://localhost:8800/posts";
 
 export default function Home() {
-    const [posts, setPosts] = useState([]);
+	const {
+		data: posts,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ["posts"],
+		queryFn: async () => {
+			const res = await fetch(api);
+			return res.json();
+		},
+	});
 
-    useEffect(() => {
-        fetch("http://localhost:8800/posts").then(res => {
-            res.json().then(data => {
-                setPosts(data);
-            });
-        })
-    }, []);
+    if(isLoading) {
+        return <Box>Loading...</Box>;
+    }
 
-    return <div>
-        {posts.map(post => {
-            return <Post key={post.id} post={post} />
-        })}
-    </div>;
+    if (error) {
+		return <Box>{error.message}</Box>;
+	}
+
+	return (
+		<div>
+			{posts.map(post => {
+				return (
+					<Post
+						key={post.id}
+						post={post}
+					/>
+				);
+			})}
+		</div>
+	);
 }

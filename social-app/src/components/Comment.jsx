@@ -5,7 +5,7 @@ import {
 
 import { green } from "@mui/material/colors";
 
-export default function Comment() {
+export default function Comment({ comment }) {
 	return (
 		<Box sx={{ mb: 2, p: 3, border: "1px solid #99999930" }}>
 			<Box sx={{ display: "flex", gap: 2 }}>
@@ -15,13 +15,14 @@ export default function Comment() {
 					/>
 				</Box>
 				<Box>
-					<Typography sx={{ fontWeight: "bold" }}>Bob</Typography>
+					<Typography sx={{ fontWeight: "bold" }}>
+                        {comment.user.name}
+                    </Typography>
 					<Typography sx={{ color: green[500] }}>
-						A few second ago
+						{comment.createdAt}
 					</Typography>
 					<Typography>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Reprehenderit deleniti ratione eum.
+						{comment.content}
 					</Typography>
 				</Box>
 			</Box>
