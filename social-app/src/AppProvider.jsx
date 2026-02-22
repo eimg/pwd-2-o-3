@@ -12,6 +12,7 @@ const queryClient = new QueryClient();
 export default function AppProvider() {
 	const [mode, setMode] = useState("dark");
 	const [showDrawer, setShowDrawer] = useState(false);
+	const [auth, setAuth] = useState();
 
 	const theme = useMemo(() => {
 		return createTheme({
@@ -21,7 +22,7 @@ export default function AppProvider() {
 
 	return (
 		<AppContext.Provider
-			value={{ mode, setMode, showDrawer, setShowDrawer }}>
+			value={{ mode, setMode, showDrawer, setShowDrawer, auth, setAuth }}>
 			<ThemeProvider theme={theme}>
 				<QueryClientProvider client={queryClient}>
 					<Router />
