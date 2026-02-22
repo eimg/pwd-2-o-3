@@ -6,6 +6,17 @@ import jwt from "jsonwebtoken";
 
 import { prisma } from "../libs/prisma";
 
+import { auth } from "../middlewares/auth";
+
+router.get("/users/verify", auth, async (req, res) => {
+    const id = res.locals.user.id as number;
+    const user = await prisma.user.findFirst({
+        where: { id }
+    });
+
+    res.json(user);
+})
+
 router.post("/users", async (req, res) => {
 	const name = req.body?.name;
 	const username = req.body?.username;
@@ -25,7 +36,7 @@ router.post("/users", async (req, res) => {
 			data: { name, username, bio, password: hash },
 		});
 
-		res.json(user);
+		res.status(201).json(user);
 	} catch (e) {
 		res.status(500).json({ msg: e });
 	}
