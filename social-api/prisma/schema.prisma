@@ -18,23 +18,36 @@ model User {
     password String
     posts    Post[]
     comments Comment[]
+    likes    Like[]
 }
 
 model Post {
     id       Int       @id @default(autoincrement())
     content  String
-    user     User      @relation(fields: [userId], references: [id])
+    user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId   Int
     comments Comment[]
+    likes    Like[]
     createAt DateTime  @default(now())
 }
 
 model Comment {
     id       Int      @id @default(autoincrement())
     content  String
-    user     User     @relation(fields: [userId], references: [id])
+    user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId   Int
-    post     Post     @relation(fields: [postId], references: [id])
+    post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
     postId   Int
     createAt DateTime @default(now())
+}
+
+model Like {
+    id       Int      @id @default(autoincrement())
+    user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId   Int
+    post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+    postId   Int
+    createAt DateTime @default(now())
+
+    @@unique([userId, postId])
 }

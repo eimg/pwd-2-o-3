@@ -13,6 +13,12 @@ app.use(postsRouter);
 import { router as usersRouter } from "./routes/users";
 app.use(usersRouter);
 
+import { router as commentsRouter } from "./routes/comments";
+app.use(commentsRouter);
+
+import { router as likesRouter } from "./routes/likes";
+app.use(likesRouter);
+
 app.get("/", (req, res) => {
     res.json({ msg: "Social API up and running..." });
 });

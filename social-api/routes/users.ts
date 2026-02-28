@@ -17,6 +17,45 @@ router.get("/users/verify", auth, async (req, res) => {
     res.json(user);
 })
 
+// Get user profile by username
+router.get("/users/:username", async (req, res) => {
+    const username = req.params.username;
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: { username },
+            include: {
+                posts: {
+                    orderBy: { id: "desc" },
+                    include: {
+                        user: true,
+                        comments: true,
+                        likes: true
+                    }
+                },
+                _count: {
+                    select: {
+                        posts: true,
+                        comments: true,
+                        likes: true
+                    }
+                }
+            }
+        });
+
+        if (!user) {
+            return res.status(404).json({ msg: "User not found" });
+        }
+
+        // Remove password from response
+        const { password, ...userWithoutPassword } = user;
+        res.json(userWithoutPassword);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ msg: "Failed to get user profile" });
+    }
+})
+
 router.post("/users", async (req, res) => {
 	const name = req.body?.name;
 	const username = req.body?.username;
