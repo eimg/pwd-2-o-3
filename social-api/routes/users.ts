@@ -37,7 +37,9 @@ router.get("/users/:username", async (req, res) => {
                     select: {
                         posts: true,
                         comments: true,
-                        likes: true
+                        likes: true,
+                        followers: true,
+                        following: true
                     }
                 }
             }

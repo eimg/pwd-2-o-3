@@ -19,6 +19,9 @@ app.use(commentsRouter);
 import { router as likesRouter } from "./routes/likes";
 app.use(likesRouter);
 
+import { router as followsRouter } from "./routes/follows";
+app.use(followsRouter);
+
 app.get("/", (req, res) => {
     res.json({ msg: "Social API up and running..." });
 });
