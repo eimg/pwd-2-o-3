@@ -1,24 +1,28 @@
 import Post from "@/components/post";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View, Text, Platform } from "react-native";
 
 import { useQuery } from "@tanstack/react-query";
 import { PostType } from "@/types/global";
 
-const api = "http://localhost:8800/posts";
+import { apiURL } from "@/configs/api";
 
 async function fetchPosts(): Promise<PostType[]> {
-    const res = await fetch(api);
-    return res.json();
+	const res = await fetch(`${apiURL}/posts`);
+	return res.json();
 }
 
 export default function Home() {
-    const { data: posts, isLoading, error } = useQuery({
-        "queryKey": ["posts"],
-        "queryFn": fetchPosts,
-    });
+	const {
+		data: posts,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ["posts"],
+		queryFn: fetchPosts,
+	});
 
-    if(isLoading) {
-        return (
+	if (isLoading) {
+		return (
 			<View
 				style={{
 					flex: 1,
@@ -28,9 +32,9 @@ export default function Home() {
 				<Text>Loading...</Text>
 			</View>
 		);
-    }
+	}
 
-    if (error) {
+	if (error) {
 		return (
 			<View
 				style={{
@@ -46,8 +50,13 @@ export default function Home() {
 	return (
 		<ScrollView>
 			{posts?.map(post => {
-                return <Post key={post.id} post={post} />
-            })}
+				return (
+					<Post
+						key={post.id}
+						post={post}
+					/>
+				);
+			})}
 		</ScrollView>
 	);
 }

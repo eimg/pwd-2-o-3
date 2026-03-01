@@ -5,6 +5,7 @@ import {
 	Text,
 	TextInput,
 	TouchableOpacity,
+    Platform,
 } from "react-native";
 
 import { useQuery } from "@tanstack/react-query";
@@ -12,10 +13,10 @@ import { PostType } from "@/types/global";
 import { useLocalSearchParams } from "expo-router";
 import CommentCard from "@/components/comment";
 
-const api = "http://localhost:8800/posts";
+import { apiURL } from "@/configs/api";
 
 async function fetchPost(id: string): Promise<PostType> {
-	const res = await fetch(`${api}/${id}`);
+	const res = await fetch(`${apiURL}/posts/${id}`);
 	return res.json();
 }
 
