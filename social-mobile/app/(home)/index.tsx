@@ -6,7 +6,7 @@ import { PostType } from "@/types/global";
 
 const api = "http://localhost:8800/posts";
 
-async function fetchPost(): Promise<PostType[]> {
+async function fetchPosts(): Promise<PostType[]> {
     const res = await fetch(api);
     return res.json();
 }
@@ -14,7 +14,7 @@ async function fetchPost(): Promise<PostType[]> {
 export default function Home() {
     const { data: posts, isLoading, error } = useQuery({
         "queryKey": ["posts"],
-        "queryFn": fetchPost,
+        "queryFn": fetchPosts,
     });
 
     if(isLoading) {
