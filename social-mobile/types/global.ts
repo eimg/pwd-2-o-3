@@ -5,13 +5,20 @@ export type UserType = {
 	bio: string;
 };
 
+export type LikeType = {
+	id: number;
+	userId: number;
+	postId: number;
+	user?: UserType;
+};
+
 export type PostType = {
 	id: number;
 	content: string;
 	user: UserType;
 	comments: CommentType[];
-	likes: [];
-	createdAt: string;
+	likes: LikeType[];
+	createAt: string;
 };
 
 export type CommentType = {
