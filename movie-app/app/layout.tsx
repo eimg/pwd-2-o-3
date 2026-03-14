@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Clapperboard, Play, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { redirect } from "next/navigation";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -40,6 +41,13 @@ export default async function RootLayout({
 }>) {
 	const genres = await fetchGenre();
 
+    const handleSearch = async function (form: FormData) {
+        "use server";
+
+        const q = form.get("q");
+        redirect(`/search?q=${q}`);
+    }
+
 	return (
 		<html lang="en">
 			<body
@@ -50,8 +58,8 @@ export default async function RootLayout({
 						Movie App
 					</h1>
 
-					<form className="flex gap-2">
-						<Input placeholder="Search..." />
+					<form className="flex gap-2" action={handleSearch}>
+						<Input placeholder="Search..." name="q" />
 						<Button type="submit">
 							<Search />
 						</Button>
